@@ -4,14 +4,14 @@ import com.mybatisplustest.mapper.MyFunctionInterface;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class functionallInterfaceTest01 {
+public class FunctionallInterfaceTest01 {
     public static void show(MyFunctionInterface myFunctionInterface) {
         myFunctionInterface.methodTest();
     }
 
     public static void main(String[] args) {
         //调用show方法，方法的参数是一个接口，可以传递接口的实现类对象
-        show(new functionallInterfaceTest());
+        show(new FunctionallInterfaceTest());
 
         //调用show方法，方法的参数是一个接口，可以传递接口的匿名内部类
         show(new MyFunctionInterface() {

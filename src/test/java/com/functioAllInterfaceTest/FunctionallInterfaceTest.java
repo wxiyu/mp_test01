@@ -4,7 +4,7 @@ import com.mybatisplustest.mapper.MyFunctionInterface;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class functionallInterfaceTest implements MyFunctionInterface {
+public class FunctionallInterfaceTest implements MyFunctionInterface {
     //检测方法是否为重写方法
     @Override
     public void methodTest() {

@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @SpringBootTest
-public class functionallInerfaceTest02 {
+public class FunctionallInerfaceTest02 {
     /**
      * Consumer<T>:消费型接口    主要针对的是消费（1....N入参，无返回）这个场景
      * 通过泛型定义了一个入参，但是没有返回值，他代表你可以针对这入参做一些自定义逻辑
