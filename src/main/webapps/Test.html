@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue-2.6.12.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!--v-text指令，如果数据不是预先设定好的，而是通过网络获取-->
+        <h1 v-html="msg"></h1>
+        <!-- v-if 指令 用于条件渲染一块内容，这块指令的内容只会在指令的表达式返回true值的时候被渲染-->
+        <h1 v-if="show">
+            <span style="color:green">香精煎鱼</span>
+        </h1>
+        <h1 v-if="!show">
+           <span style="color:red">想吃荔枝</span>
+        </h1>
+        <ul>
+            <li v-for="(item,index) in favorites">{{index + ":" +item}}</li>
+        </ul>
+        <table>
+            <thead>
+            <tr>
+                <th>唱</th>
+                <th>跳</th>
+                <th>rap</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="u in ikuns">
+                <th>{{u.chang}}</th>
+                <th>{{u.tiao}}</th>
+                <th>{{u.rap}}</th>
+            </tr>
+            </tbody>
+        </table>
+        <ul>
+            <!-- v-for的key属性，当我们需要更新v-for渲染过的元素列表时，比如说向数组添加一个新的元素。
+            为了保证vue正确并高校的渲染页面 。官方建议我们为每项提供一个唯一的 key 属性，
+            以便它能跟踪每个节点的身份，从而重用和重新排列现有元素。key一般使用在遍历完后，新增，减少数组的元素才有意义-->
+            <li v-for="(value,name,index) in person" :key="index">{{index}}--{{name}}--{{value}}</li>
+        </ul>
+        <button onclick="addPerson()">小黑子点</button>
+        <!--注意 v-for 优先级比 v-if 的高，用在1个元素上，一定会先执行数据遍历-->
+        <button onclick="changePerson()">点我</button>
+        <!-- v-on事件绑定
+         v-on ：事件名="js代码片段或函数" // 事件名  = 事件属性-on
+         -->
+        <!-- v-bind指令 -->
+    </div>
+    <script>
+        const vm = new Vue({
+            el:"#app",//通过选择器，选则要挂载的标签
+            data:{//数据
+                msg:"<span style='color: red'>你干嘛哎呦</span>",
+                show:true,
+                favorites:["唱","跳","rap","篮球","music~"],
+                ikuns:[
+                    {"chang":"爱ikun","tiao":"不爱请别伤害","rap":"律师函警告"},
+                    {"chang":"真爱ikun","tiao":"不爱请别伤害1","rap":"律师函警告1"},
+                    {"chang":"假爱ikun","tiao":"不爱请别伤害2","rap":"律师函警告2"}
+                ],
+                person:{
+                    "name": "zhangsan",
+                    "age": 13,
+                    "gender": "男",
+                    "address": "中国"
+                }
+            },
+            methods:{
+
+            }
+
+        });
+        function addPerson(){
+            vm.ikuns.push({"chang":"荔枝","tiao":"苏珊","rap":"基尼太美"})
+        }
+        function changePerson(){
+            vm.person = {
+                "name": "lisi",
+                "age": 16,
+                "gender": "女",
+                "address": "中国"
+            }
+        }
+    </script>
+</body>
+</html>
