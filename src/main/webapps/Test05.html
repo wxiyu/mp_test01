@@ -20,7 +20,7 @@
 </div>
 <script>
     const vm = new Vue({
-        el: "#app",//通过选择器，选则要挂载的标签
+        el: "#app",//通过选择器，选则要挂载的标签，
         data: {//数据
             str:"xiao Hei zi",
             date:new Date(),
@@ -36,6 +36,7 @@
                 let day = value.getDay();
                 let hours = value.getHours();
                 let seconds = value.getSeconds();
+
                 let minutes = value.getMinutes();
                 return `${year}年${month}月${day}日     ${hours}时${seconds}分${minutes}秒`;
             },
