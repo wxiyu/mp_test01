@@ -42,35 +42,33 @@
 </div>
 <template id="table-body">
     <tbody>
-        <tr v-for="u in users" :key="u.id">
-            <td>{{u.id}}</td>
-           <td>{{u.name}}</td>
-           <td>{{u.age}}</td>
-           <td>{{u.gender}}</td>
-        </tr>
+    <tr v-for="u in users" :key="u.id">
+        <td>{{u.id}}</td>
+        <td>{{u.name}}</td>
+        <td>{{u.age}}</td>
+        <td>{{u.gender}}</td>
+    </tr>
     </tbody>
 </template>
 <script>
     const tableBody = {
-        template:"#table-body",
-        data:function (){
+        template: "#table-body",
+        data: function () {
             return {
                 users: [
-                    {"id":1, "name": "小明", "age": 13, "gender": "男"},
-                    {"id":2, "name": "小红", "age": 13, "gender": "女"},
-                    {"id":3, "name": "小绿", "age": 4, "gender": "男"}
+                    {"id": 1, "name": "小明", "age": 13, "gender": "男"},
+                    {"id": 2, "name": "小红", "age": 13, "gender": "女"},
+                    {"id": 3, "name": "小绿", "age": 4, "gender": "男"}
                 ]
             }
         }
     }
     const vm = new Vue({
         el: "#app",//通过选择器，选则要挂载的标签
-        components:{
-            "table-body":tableBody
+        components: {
+            "table-body": tableBody
         }
     });
-
-
 </script>
 </body>
 </html>

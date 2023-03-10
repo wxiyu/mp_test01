@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue-2.6.12.js" type="text/javascript"></script>
+</head>
+
+<body>
+<div id="app">
+    <!-- 组件的嵌套 -->
+    <!-- 在vue设计中，一切都可以看作组件。整个页面可以看作是一个跟组件，
+    内部的各块组件可以看作子组件。组件之间自然会发生嵌套关系 -->
+
+    <!-- 一个表格可以设计为一个父组件和两个子组件 -->
+    <my-table></my-table>
+</div>
+<template id="table-head">
+    <thead>
+    <tr>
+        <th>id</th>
+        <th>name</th>
+        <th>age</th>
+        <th>gender</th>
+    </tr>
+    </thead>
+</template>
+<template id="table-body">
+    <tbody>
+    <tr v-for="u in users" :key="u.id">
+        <td>{{u.id}}</td>
+        <td>{{u.name}}</td>
+        <td>{{u.age}}</td>
+        <td>{{u.gender}}</td>
+    </tr>
+    </tbody>
+</template>
+<template id="my-table">
+    <table border="1" align="center">
+        <thead is="table-head"></thead>
+        <thead is="table-body"></thead>
+    </table>
+
+</template>
+<script>
+    var tableHead = {
+        template: "#table-head"
+    };
+    var tableBody = {
+        template: "#table-body",
+        data:function (){
+            return{
+                users:[
+                    {"id":1, "name": "小明", "age": 13, "gender": "男"},
+                    {"id":2, "name": "小红", "age": 13, "gender": "女"},
+                    {"id":3, "name": "小绿", "age": 4, "gender": "男"}
+                ]
+            }
+        }
+    }
+    //使用局部组件注册
+    var myTable = {
+        template:"#my-table",
+        components:{
+            "table-head":tableHead,
+            "table-body":tableBody
+        }
+    }
+    const vm = new Vue({
+        el: "#app",//通过选择器，选则要挂载的标签
+        components:{
+            "my-table":myTable,
+        }
+    });
+</script>
+</body>
+</html>
