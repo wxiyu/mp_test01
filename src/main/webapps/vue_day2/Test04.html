@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue-2.6.12.js" type="text/javascript"></script>
+</head>
+
+<body>
+<div id="app">
+    <button-counter></button-counter>
+    <button-counter></button-counter>
+</div>
+<script>
+    /*局部注册*/
+    /*一旦全局注册，就意味着即便以后你不再使用这个组件，它依然会随着vue的加载而加载，
+    因此，对于一些并不频繁使用的组件，我们会采用局部注册。在vue实例中添加选项components 语法如下*/
+    const vm = new Vue({
+        el: "#app",//通过选择器，选则要挂载的标签
+        components: {
+            //注册局部组件
+            "button-counter": {
+                template: "<button @click='increment'>点了{{count}}下</button>",
+                data: function () {
+                    return {
+                        count: 0
+                    }//return的对象，类似于创建vue实例时的data
+                },
+                methods: {
+                    increment() {
+                        this.count++
+                    }
+                    //和定义vue实例时一样，用于定义函数
+                }
+            }
+        }
+
+    });
+
+</script>
+</body>
+</html>
