@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue-2.6.12.js" type="text/javascript"></script>
+</head>
+
+<body>
+<div id="app">
+    <!-- 实战案例 -->
+    <div>
+        <my-table :us="users" @show-user="handleShowUser"></my-table>
+        <hr>
+        <update-form :u="user" @update-user="handleUpdateUser"></update-form>
+    </div>
+</div>
+<template id="my-table">
+    <table border="1">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>name</th>
+                <th>age</th>
+                <th>operation</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="(u,index) in us" :key="u.id">
+                <td>{{u.id}}</td>
+                <td>{{u.name}}</td>
+                <td>{{u.age}}</td>
+                <td>
+                <button @click="emitShowUser(u)">更新</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</template>
+<template id="update-form">
+    <form action="" @submit.prevent="emitUpdateUser">
+        <input type="hidden" v-model="u.id" >
+        用户名: <input type="text" v-model="u.name"> <br>
+        年龄: <input type="number" v-model="u.age"> <br>
+        <input type="submit" value="更新">
+    </form>
+</template>
+<script>
+    const updateForm = {
+        template:"#update-form",
+        props:["u"],
+        methods:{
+            emitUpdateUser(){
+                this.$emit("update-user",this.u)
+            }
+        }
+    };
+
+    const myTable={
+        template: "#my-table",
+        props:["us"],
+        methods: {
+            emitShowUser(u){
+                this.$emit("show-user",u);
+            }
+        }
+    };
+    const vm = new Vue({
+        el:"#app",
+        data:{
+            users:[
+                {id:1,name:"xiao1hei",age:18},
+                {id:2,name:"xiao2hei",age:20},
+                {id:3,name:"xiao3hei",age:22}
+            ],
+            user:{}
+        },
+        components:{
+            myTable,updateForm
+        },
+        methods:{
+            handleShowUser(u){
+                this.user = JSON.parse(JSON.stringify(u));
+            },
+            handleUpdateUser(u){
+                this.users.forEach((item,i,users)=>{
+                    if(item.id == u.id){
+                        //由于Vue2.x无法直接检测到数组中元素的变化，可以使用vue提供的$set方法
+                        this.$set(this.users,i,JSON.parse(JSON.stringify(u)));
+                    }
+                })
+            }
+        }
+    })
+</script>
+</body>
+</html>
