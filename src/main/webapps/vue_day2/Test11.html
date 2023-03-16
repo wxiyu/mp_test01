@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue-2.6.12.js" type="text/javascript"></script>
+</head>
+
+<body>
+<div id="app">
+    <!-- 子传父: $emit -->
+    <!-- 父组件的模板中包含子组件，那么经常会出现子组件的状态发生变化时，
+    要通知父组件，所有的props都使得其父组件prop之间形成一个单向下行绑定：
+    父级prop的更新会向下流动到子组件中，但是反过来则不行。如下所示： -->
+    <h2>{{num}}</h2>
+    <!-- 父组件向子组件传递数据 count=num 子组件中修改count值，不能修改父组件的num -->
+    <counter :count="num"></counter>
+    <br/>
+
+    <!-- 所以，当需要子传父的时候，Vue采用事件放射的方式完成
+        在子组件中执行$emit("父组件的自定义事件")通知父组件，并发送数据
+        父组件中定义自定义事件处理函数，并接收数据
+     -->
+</div>
+<template id="cc">
+    <div>
+        <button @click="increment">点我自增</button>
+        <span>{{count}}</span>
+        <button @click="decrement">点我自减</button>
+    </div>
+</template>
+<script>
+    Vue.component("counter",{
+        template:"#cc",
+        props:["count"],
+        methods:{
+            increment(){
+                this.count++;
+            },
+            decrement(){
+                this.count--;
+            }
+        }
+    })
+    const vm = new Vue({
+        el:"#app",
+        data:{
+            num:0
+        }
+    })
+</script>
+</body>
+</html>

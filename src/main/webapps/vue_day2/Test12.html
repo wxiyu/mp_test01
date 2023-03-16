@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue-2.6.12.js" type="text/javascript"></script>
+</head>
+
+<body>
+<div id="app">
+    <!-- 所以，当需要子传父的时候，Vue采用事件放射的方式完成
+        在子组件中执行$emit("父组件的自定义事件")通知父组件，并发送数据
+        父组件中定义自定义事件处理函数，并接收数据
+     -->
+    <h2>{{num}}</h2>
+    <!-- 2. 绑定自定义事件处理函数，监听子组件的事件触发 change-count
+     当子组件触发事件后，执行handleChange的实参-->
+    <counter :count="num" @change-count="handleChange"></counter>
+</div>
+<template id="cc">
+    <div>
+        <button @click="increment">点我自增</button>
+        <span>{{count}}</span>
+        <button @click="decrement">点我自减</button>
+    </div>
+</template>
+<script>
+    Vue.component("counter",{
+        template:"#cc",
+        props:["count"],
+        methods:{
+            increment(){
+                this.count++;
+                //1: 子组件中通过$emit触发父组件中的自定义事件，并发送数据
+                this.$emit("change-count",this.count);
+            },
+            decrement(){
+                this.count--;
+                //1：子组件中通过$emit触发父组件中的自定义事件，并发送数据
+                this.$emit("change-count",this.count)
+            }
+        }
+    })
+    const vm = new Vue({
+        el:"#app",
+        data:{
+            num:0
+        },
+        methods: {
+            handleChange(value){
+                this.num = value
+            }
+        }
+    })
+</script>
+</body>
+</html>

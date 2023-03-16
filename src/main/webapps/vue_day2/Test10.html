@@ -8,18 +8,24 @@
 
 <body>
 <div id="app">
-    <!-- 语法： -->
-    <!-- 1：定义子组件中添加props属性
-     const 组件 = {
-        template:"help片段",
-        props:["自定义参数名",................]
-     } -->
-    <!-- 2:使用组件时，为组件添加，自定义参数名，同名的属性
-        <组件 :自定义参数名 = "值"></组件>
-     -->
+        <!--  父传子 props -->
+        <!-- 通常父组件的模板中包含子组件，父组件要正向地向子组件传递数据或者参数，
+        子组件接收到后根据参数地不同，来渲染不同的内容或者执行操作。
+        这个正向传递数据的过程就是通过props来实现的 -->
+        <!-- 比如在之前的表格案例中，table-body子组件展示的数据是定义在子组件自个身上的，这么做虽有效，
+         但是降低了该组件的复用价值，更好的做法是：子组件不定义数据，而是由使用他的父组件传递，
+         此时，需要使用props完成父组件向子组件的数据传递-->
+        <!-- 语法：
+         1:定义子组件中，添加props属性
 
-    <!-- 实例 -->
-    <my-table :us="userss"></my-table>
+         const 组件 ={
+            template:"help片段",
+            props:["自定义参数名",............]
+         }
+         2. 使用组件时，为组件添加 自定义参数名 同名的属性
+         <组件 :自定义参数名="值 "></组件>
+         -->
+    <my-table :us="users"></my-table>
 </div>
 
 <template id="my-table">
@@ -30,7 +36,6 @@
                 <th>name</th>
                 <th>age</th>
                 <th>gender</th>
-
             </tr>
         </thead>
         <tbody>
@@ -44,24 +49,23 @@
     </table>
 </template>
 <script>
-    var myTable = {
+    var myTable={
         template:"#my-table",
         props:["us"]
     }
     const vm = new Vue({
-        el: "#app",//通过选择器，选则要挂载的标签
+        el:"#app",
         data:{
-            userss: [
+            users: [
                 {"id":1, "name": "小明", "age": 13, "gender": "男"},
                 {"id":2, "name": "小红", "age": 13, "gender": "女"},
                 {"id":3, "name": "小绿", "age": 4, "gender": "男"}
             ]
         },
         components:{
-            "my-table":myTable
-        },
-
-    });
+            "myTable":myTable
+        }
+    })
 </script>
 </body>
 </html>
