@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- 路由：vueRouter -->
+    <!-- vue中路由的作用：
+          vue中路由解决的就是在单页面中组件的显示切换问题。比如有这么一个页面，
+          页面上有两个超链接（登录和注册），点击登录链接显示登录的表单，点击注册链接显示注册的表单
+     -->
+    <!--第一个路由实例-->
+    <!-- 1：页面引入 vur-route.js -->
+
+    <script src="vue-2.6.12.js" type="text/javascript"></script>
+    <!-- 注意引入顺序， vue-route.js 必须在vue.js之后引入 -->
+    <script src="vue-router-3.4.9.js" type="text/javascript"></script>
+</head>
+
+<body>
+<div id="app">
+    <!-- 超链接的href必须以#开头 -->
+    <a href="#/login">登录</a>
+    <a href="#/register">注册</a>
+    <hr>
+    <!-- router-view是路由的锚点，也就是路由到的组件显示的地方 -->
+   <!-- <login-form></login-form>
+    <register-form></register-form>-->
+    <router-view></router-view>
+</div>
+<template id="login-form">
+    <div>我是登录表单</div>
+</template>
+<template id="register-form">
+    <div>我是注册表单</div>
+</template>
+    <script>
+        //2.定义组件
+        const loginForm = {
+            template:"#login-form"
+        }
+        const registerForm = {
+            template:"#register-form"
+        }
+
+        //3.创建vuerouter对象，配置路由匹配规则
+        //router对象
+        //router对象
+        const router = new VueRouter({
+            routes:[
+                {
+                    name:"login",//路由名称
+                    path:"/login",//路由路径
+                    component:loginForm//要路由到的组件
+                },
+                {name:"register",path:"/register",component:registerForm}
+            ]
+        });
+        const vm = new Vue({
+            el:"#app",
+            //router:router //如果路由对象名也叫router，则可以省略:router
+            router,
+            components:{
+                "login-form":loginForm,
+                "register-form":registerForm
+            }
+        })
+    </script>
+</body>
+</html>
