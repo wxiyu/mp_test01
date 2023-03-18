@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="vue-2.6.12.js" type="text/javascript"></script>
+    <!-- 注意引入顺序， vue-route.js 必须在vue.js之后引入 -->
+    <script src="vue-router-3.4.9.js" type="text/javascript"></script>
+</head>
+
+<body>
+<div id="app">
+    <!-- 嵌套路由 -->
+    <!-- 实际应用到的界面，通常由多层嵌套的组件组合而成。当我们路由到某一个组件后，
+     还经常需要在该组件中继续路由到其他子组件，这就需要使用vue的嵌套路由。比如：当我们路由到登陆组件后，
+     又分为手机验证码登录和账户名密码登录2个子组件-->
+
+</div>
+
+<script>
+    /*
+
+    语法：const 子组件 ={
+        template:"子组件标签"
+    }
+
+    const 父组件  = {
+        template:'<router-link to="/父组件路径/子组件路径">链接1</router-link>
+        <router-view></router-view>
+        '
+    }
+    */
+    const router = new VueRouter({
+        routes:[
+            {
+                name:"/组件路径",
+                component:父组件对象,
+                children:[
+                    //设置子路由信息
+                    {
+                        path:"子路由路径",//通常不以/开头
+                        component: 子组件
+                    }
+                ]
+            }
+        ]
+    })
+    const vm = new Vue({
+        el: "#app",
+        //router:router //如果路由对象名也叫router，则可以省略:router
+    })
+</script>
+</body>
+</html>

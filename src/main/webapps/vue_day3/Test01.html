@@ -20,8 +20,14 @@
 <div id="app">
     <!-- 超链接的href必须以#开头 -->
 
-    <a href="#/login">登录</a>
-    <a href="#/register">注册</a>
+    <!-- router-link和redirect -->
+    <!-- router标签用于代替a标签，定义跳转超链接 -->
+   <!-- <a href="#/login">登录</a>
+    <a href="#/register">注册</a>-->
+
+    <!-- to属性配置跳转路径，不用添加#前缀 -->
+    <router-link to="/login">登录</router-link>
+    <router-link to="/register">注册</router-link>
     <hr>
     <!-- router-view是路由的锚点，也就是路由到的组件显示的地方 -->
    <!-- <login-form></login-form>
@@ -46,8 +52,14 @@
         //3.创建vuerouter对象，配置路由匹配规则
         //router对象
         //router对象
+
+        //redirect属性用在路由上，比如在a路由上配置redirect:b 路由的路径，
+        // 当访问a时会自动重定向到b。通常用于配置页面的默认路由地址
         const router = new VueRouter({
             routes:[
+                {
+                    name:"defalut",path:"/",redirect:"/login"
+                },
                 {
                     name:"login",//路由名称
                     path:"/login",//路由路径
